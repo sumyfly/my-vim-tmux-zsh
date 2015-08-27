@@ -87,9 +87,9 @@ Plugin 'Valloric/YouCompleteMe'
 " YouCompletMe配置
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+""nnoremap <leader>gf :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+""let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "Do not ask when starting vim
 let g:ycm_confirm_extra_conf=0
 let g:syntastic_always_populate_loc_list = 1
