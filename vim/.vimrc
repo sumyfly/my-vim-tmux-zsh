@@ -44,6 +44,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'nono/jquery.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'ap/vim-css-color'
+Plugin 'groenewege/vim-less'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 好看的状态栏
