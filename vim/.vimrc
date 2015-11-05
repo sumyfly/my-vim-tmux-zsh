@@ -45,7 +45,6 @@ Plugin 'nono/jquery.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'ap/vim-css-color'
 Plugin 'groenewege/vim-less'
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 好看的状态栏
 Plugin 'lokaltog/vim-powerline'
@@ -88,7 +87,7 @@ Plugin 'Valloric/YouCompleteMe'
 " YouCompletMe配置
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
-""nnoremap <leader>gf :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
 ""let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "Do not ask when starting vim
@@ -141,7 +140,7 @@ endfunc
 set go=             " 不要图形按钮  
 "color asmanian2     " 设置背景主题  
 "set guifont=Courier_New:h10:cANSI   " 设置字体  
-"syntax on           " 语法高亮  
+set syntax=on           " 语法高亮  
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
 autocmd InsertEnter * se cul    " 用浅色高亮当前行  
 "set ruler           " 显示标尺  
@@ -161,24 +160,6 @@ if version >= 603
 	set helplang=cn
 	set encoding=utf-8
 endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 设置配色方案
-"colorscheme murphy
-"字体 
-"if (has("gui_running")) 
-"   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 
-"endif 
-"colorscheme torte
-"colorscheme murphy
-"colorscheme desert 
-"colorscheme elflord
-"colorscheme ron
-"set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
-"set termencoding=utf-8
-"set encoding=utf-8
-"set fileencodings=ucs-bom,utf-8,cp936
-"set fileencoding=utf-8
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""新文件标题
@@ -306,8 +287,6 @@ set foldlevel=3
 set foldenable              " 开始折叠
 " 不要使用vi的键盘模式，而是vim自己的
 set nocompatible
-" 语法高亮
-set syntax=on
 " 去掉输入错误的提示声音
 set noeb
 " 在处理未保存或只读文件的时候，弹出确认
@@ -390,12 +369,13 @@ au BufRead,BufNewFile *  setfiletype txt
 "自动补全
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {<CR>}<ESC>O
+":inoremap { {<CR>}<ESC>O
+:inoremap { {}<ESC>i
 :inoremap } <c-r>=ClosePair('}')<CR>
 :inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap " ""<ESC>i
-:inoremap ' ''<ESC>i
+":inoremap " ""<ESC>i
+":inoremap ' ''<ESC>i
 function! ClosePair(char)
 	if getline('.')[col('.') - 1] == a:char
 		return "\<Right>"
@@ -408,18 +388,18 @@ filetype plugin indent on
 set completeopt=longest,menu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "NERDtee设定
-let NERDChristmasTree=1
-let NERDTreeAutoCenter=1
-let NERDTreeBookmarksFile=$VIM.'\Data\NerdBookmarks.txt'
-let NERDTreeMouseMode=2
-let NERDTreeShowBookmarks=1
-let NERDTreeShowFiles=1
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-let NERDTreeWinPos='left'
-let NERDTreeWinSize=31
-nnoremap f :NERDTreeToggle
-map <F7> :NERDTree<CR>  
+""let NERDChristmasTree=1
+""let NERDTreeAutoCenter=1
+""let NERDTreeBookmarksFile=$VIM.'\Data\NerdBookmarks.txt'
+""let NERDTreeMouseMode=2
+""let NERDTreeShowBookmarks=1
+""let NERDTreeShowFiles=1
+""let NERDTreeShowHidden=1
+""let NERDTreeShowLineNumbers=1
+""let NERDTreeWinPos='left'
+""let NERDTreeWinSize=31
+""nnoremap f :NERDTreeToggle
+""map <F7> :NERDTree<CR>  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set shortmess=atI   " 去掉欢迎界面
 " -----------------------------------------------------------------------------
@@ -443,19 +423,30 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 用空格键来开关折叠 
 set foldenable 
-set foldmethod=manual 
+"set foldmethod=manual 
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR> 
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 这个是色彩256
+" 设置显示色彩256
 set t_Co=256
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 颜色样式
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 字体 
+"if (has("gui_running")) 
+"   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 
+"endif 
+"set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
+"set termencoding=utf-8
+"set encoding=utf-8
+"set fileencodings=ucs-bom,utf-8,cp936
+"set fileencoding=utf-8
+
+" 设置配色方案
+""colorscheme zendnb
 ""colorscheme zenburn
 ""colorscheme Tomorrow-Night-Eighties
-
-syntax enable
 ""let g:solarized_termcolors=256
 ""if has('gui_running')
 ""	set background=light
@@ -464,7 +455,6 @@ syntax enable
 ""endif
 ""colorscheme solarized
 colorscheme qsl-molokai
-""colorscheme zendnb
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nerdtree
@@ -488,6 +478,7 @@ map <F10> :call Youdao()<cr>
 let g:html_indent_inctags = "html,body,head,tboy"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
+let b:javascript_fold = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -527,7 +518,9 @@ nnoremap <F6> :call s:RunShellCommand("node".expand("%"))<CR>
 
 ""map <F5> <Esc>:silent !google-chrome %<cr>
 ""let g:ycm_server_keep_logfiles = 1
-vmap <silent> ;h :s?^\(\s*\)+'\([^']\+\)',*\s*$?\1\2?g<CR>
+" 按下;h,取消Html的格式化
+vmap <silent> ;h :s?^\(\s*\)+'\(.*\)'\s*$? \1\2?<CR>
+" 按下;q,选择的内容会被格式化
 vmap <silent> ;q :s?^\(\s*\)\(.*\)\s*$? \1 + '\2'?<CR>
 
 ""if exists('$TMUX')
