@@ -1,14 +1,10 @@
 ;; author: chinazhangjie
 ;; e-mail: chinajiezhang@gmail.com
 
-
 ;;指针颜色设置为白色
 (set-cursor-color "white")
 ;;鼠标颜色设置为白色
 (set-cursor-color "white")
-
-
-
 
 ;; 从color-theme中获取
 ;; 网上下载color-theme.el，放到加载路径(／usr/share/emacs/site-lisp )下
@@ -22,7 +18,7 @@
 (setq color-theme-is-global t)
 (color-theme-initialize)
 (color-theme-subtle-hacker)
-
+;;(color-theme-comidia)
 
 ;; 使用tabbar.el
 (require 'tabbar)
@@ -31,8 +27,6 @@
 (global-set-key (kbd "") 'tabbar-forward-group)
 (global-set-key (kbd "") 'tabbar-backward)
 (global-set-key (kbd "") 'tabbar-forward)
-
-
 
 ;; 一打开就起用 text 模式。  
 (setq default-major-mode 'text-mode)
@@ -92,7 +86,6 @@
 (loop for x downfrom 40 to 1 do
       (setq tab-stop-list (cons (* x 4) tab-stop-list)))
 
-
 ;; 回车缩进
 (global-set-key "\C-m" 'newline-and-indent)
 (global-set-key (kbd "C-<return>") 'newline)
@@ -119,12 +112,118 @@ nil 0 nil "_NET_WM_STATE" 32
 ;; 启动emacs时窗口最大化
 (my-maximized)
 
-
-;;gdb-many-windows
+;;gdb
 (setq gdb-many-windows t)
 (load-library "multi-gud.el")
 (load-library "multi-gdb-ui.el")
 
+(setq column-number-mode t)
+(setq line-number-mode t)
+;;显示行列号
+(global-linum-mode t)
 
-
+;;elpa package config
 (put 'downcase-region 'disabled nil)
+(require 'package)
+(add-to-list 'package-archives'
+  ("org" . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives'
+  ("elpa" . "http://tromey.com/elpa/") t)
+;(add-to-list 'package-archives'
+;  ("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives'
+  ;;("melpa" . "http://melpa.org/packages/") t)
+  ("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
+;;slime
+(require 'ac-slime)
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+(eval-after-load "auto-complete"
+   '(add-to-list 'ac-modes 'slime-repl-mode))
+
+;; The following lines are always needed. Choose your own keys.
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when global-font-lock-mode is on
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+;; org mode
+(setq org-src-fontify-natively t)
+
+;; auto-complete
+(require 'auto-complete)
+(require 'auto-complete-config)
+(global-auto-complete-mode t)
+(setq-default ac-sources '(ac-source-words-in-same-mode-buffers))
+(add-hook 'emacs-lisp-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-symbols)))
+(add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
+(set-face-background 'ac-candidate-face "lightgray")
+(set-face-underline 'ac-candidate-face "darkgray")
+(set-face-background 'ac-selection-face "steelblue") ;;; 设置比上面截图中更好看的背景颜色
+(define-key ac-completing-map "\M-n" 'ac-next)  ;;; 列表中通过按M-n来向下移动
+(define-key ac-completing-map "\M-p" 'ac-previous)
+(setq ac-auto-start 2)
+(setq ac-dwim t)
+(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+
+;; python elpy
+(defvar myPackages
+  '(better-defaults
+	elpy ;; add the elpy package
+	flycheck;; add the flycheck package
+	material-theme))
+
+;; enable-elpy
+(elpy-enable)
+
+;; Flycheck python
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; inf-ruby
+;; (setq load-prefer-newer t)
+(autoload 'run-ruby "inf-ruby"
+	"Run an inferior Ruby process")
+
+;; Enable company globally for all mode
+(global-company-mode)
+
+;; Reduce the time after which the company auto completion popup opens
+(setq company-idle-delay 0.2)
+
+;; Reduce the number of characters before company kicks in
+(setq company-minimum-prefix-length 1)
+;; Set path to racer binary
+(setq racer-cmd "/usr/local/bin/racer")
+
+;; Set path to rust src directory
+(setq racer-rust-src-path "/Users/YOURUSERNAME/.rust/src/")
+
+;; Load rust-mode when you open `.rs` files
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
+;; Setting up configurations when you load rust-mode
+(add-hook 'rust-mode-hook
+
+     '(lambda ()
+     ;; Enable racer
+     (racer-activate)
+
+     ;; Hook in racer with eldoc to provide documentation
+     (racer-turn-on-eldoc)
+
+     ;; Use flycheck-rust in rust-mode
+     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+
+     ;; Use company-racer in rust mode
+     (set (make-local-variable 'company-backends) '(company-racer))
+
+     ;; Key binding to jump to method definition
+     (local-set-key (kbd "M-.") #'racer-find-definition)
+
+     ;; Key binding to auto complete and indent
+     (local-set-key (kbd "TAB") #'racer-complete-or-indent)))
