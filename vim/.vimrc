@@ -45,10 +45,12 @@ Plugin 'nono/jquery.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'ap/vim-css-color'
 Plugin 'groenewege/vim-less'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 好看的状态栏
-Plugin 'lokaltog/vim-powerline'
-let g:Powerline_symbols='fancy'
+"Plugin 'lokaltog/vim-powerline'
+"let g:Powerline_symbols='fancy'
 " 1.在控件目录下面有fontpatcher,运行里面的python脚本，可能会提示需要下载python依赖模块.
 " 2.下载模块:sudo apt-get install python-fontforge,运行./fontpatcher PowerlineSymbols.sfd,产生新文件
 " PowerlineSymbols-Powerline.otf.
@@ -83,16 +85,15 @@ Plugin 'marijnh/tern_for_vim'
 " 4.使用CMake命令生成makefile到~/ycm_build中
 " 5.在ycm_build中使用make安装
 " 6.用户配置文件在
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 " YouCompletMe配置
-let g:ycm_error_symbol = '>>'
-let g:ycm_warning_symbol = '>*'
-nnoremap <leader>gf :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
-""let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"let g:ycm_error_symbol = '>>'
+"let g:ycm_warning_symbol = '>*'
+"nnoremap <leader>gf :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
 "Do not ask when starting vim
-let g:ycm_confirm_extra_conf=0
-let g:syntastic_always_populate_loc_list = 1
+"let g:ycm_confirm_extra_conf=0
+"let g:syntastic_always_populate_loc_list = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -530,3 +531,7 @@ vmap <silent> ;q :s?^\(\s*\)\(.*\)\s*$? \1 + '\2'?<CR>
 ""if exists('$TMUX')
 ""	set term=screen-256color
 ""endif
+
+"airline
+"let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
